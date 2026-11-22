@@ -239,9 +239,9 @@ function cloudInit(){
  auth.onAuthStateChanged(user=>{authenticated=!!user; if(user){statusCloud(cloudReady?'クラウド接続済み／管理者ログイン中':'クラウド読み込み中')}else{statusCloud(cloudReady?'閲覧モード':'クラウド読み込み中')}});
  firebase.database().ref('site/content').on('value',snap=>{const remote=snap.val();cloudReady=true;
  if(remote&&Array.isArray(remote.items)&&Array.isArray(remote.slides)&&Array.isArray(remote.products)){
-  if(cloudWriting)return;data=remote;normalize();render();loadImportedProductImages();
+  if(cloudWriting)return;data=remote;normalize();render();loadImportedProductImages();openDeepLinkedContent();
   statusCloud(window.yabasugiCatalogMigrated?'商品URLの旧版データを画面上で訂正しました。管理者が保存するとクラウドへ反映されます。':(auth.currentUser?'クラウド同期済み／管理者ログイン中':'クラウド同期済み／閲覧モード'));
- }else if(!remote){data=clone(SEED);normalize();render();statusCloud(auth.currentUser?'初期データ未公開：管理画面から「初期データを公開」してください':'サイト初期データ未公開（管理者の公開待ち）',!auth.currentUser)}
+ }else if(!remote){data=clone(SEED);normalize();render();openDeepLinkedContent();statusCloud(auth.currentUser?'初期データ未公開：管理画面から「初期データを公開」してください':'サイト初期データ未公開（管理者の公開待ち）',!auth.currentUser)}
  },e=>statusCloud('読み込み失敗：'+e.message,true));
  initBingoCloud();
  }catch(e){statusCloud('Firebase接続失敗：'+e.message,true)}
@@ -268,7 +268,27 @@ function renderSlides(){const track=document.getElementById('slides'),dots=docum
 function goSlide(n){slideIndex=n;renderSlides()}function startAuto(){clearInterval(auto);auto=setInterval(()=>{if(data.slides.length>1)goSlide(slideIndex+1)},5000)}
 function render(){document.getElementById('homeView').classList.remove('hidden');document.getElementById('bingoView').classList.add('hidden');renderSlides();const tabs=document.getElementById('tabs');tabs.replaceChildren();categories.forEach(c=>{const b=btn(c,()=>{filter=c;render()},'tab'+(c===filter?' active':''));tabs.append(b)});const cards=document.getElementById('cards');cards.replaceChildren();const list=data.items.filter(x=>filter==='全て'||x.category===filter);if(!list.length)cards.append(el('div','empty','コンテンツはまだありません'));list.forEach(x=>{const c=el('article','card'),th=el('div','thumb');if(imgOK(x.image)){const im=image(x.image,'',x.title);setImgStyle(im,x.crop);th.append(im)}else th.append(el('div','placeholder',x.category==='やばくじ'?'🎁':x.category==='オフライン特典会'?'♡':'YABASUGI'));const body=el('div','cardbody');body.append(el('h3','',x.title));c.append(th,body);c.onclick=()=>showDetail(x.id);cards.append(c)})}
 function modal(p){document.getElementById('modalBody').replaceChildren(p);document.getElementById('modal').classList.add('show')}
-function closeModal(){document.getElementById('modal').classList.remove('show')}
+function closeModal(){
+ document.getElementById('modal').classList.remove('show');
+ // An article opened from a QR link should return to the normal home URL when closed.
+ if(detailId&&window.location.hash==='#content='+encodeURIComponent(detailId)){
+  window.history.replaceState(null,'',window.location.pathname+window.location.search);
+ }
+ detailId=null;
+}
+// Direct links such as /#content=c3 open the existing article popup; no new page is needed.
+function linkedContentId(){
+ const match=window.location.hash.match(/^#content=([a-zA-Z0-9_-]+)$/);
+ return match&&data.items.some(item=>String(item.id)===match[1])?match[1]:null;
+}
+function openDeepLinkedContent(){
+ const id=linkedContentId();
+ if(id)showDetail(id);
+ return !!id;
+}
+window.addEventListener('hashchange',()=>{
+ if(!openDeepLinkedContent()&&detailId)closeModal();
+});
 function closeDrawer(){document.getElementById('drawer').classList.remove('show');document.getElementById('overlay').classList.remove('show')}
 function goHome(){closeModal();filter='全て';render();window.scrollTo(0,0)}
 function showDetail(id){const x=data.items.find(q=>q.id===id);if(!x)return;detailId=id;const p=el('div');p.append(el('h2','',x.title));if(imgOK(x.image))p.append(image(x.image,'detail-img',x.title));p.append(el('p','subtle',x.category));const blocks=Array.isArray(x.blocks)?x.blocks:[];const used=new Set();const parts=String(x.description||'').split(/(\{\{block:[^}]+\}\})/g);for(const part of parts){const match=part.match(/^\{\{block:([^}]+)\}\}$/);if(match){const b=blocks.find(v=>v.uid===match[1]);if(b){p.append(renderBlock(b));used.add(b.uid)}else p.append(el('div','detail-desc',part))}else if(part){const section=el('div','detail-desc article-part');const chunks=part.split(/(\[\[pink\]\][\s\S]*?\[\[\/pink\]\])/g);for(const chunk of chunks){if(chunk.startsWith('[[pink]]')&&chunk.endsWith('[[/pink]]')){const sp=el('span','',chunk.slice(8,-9));sp.style.color='#ed4b94';section.append(sp)}else section.append(document.createTextNode(chunk))}p.append(section)}}if(x.bingoLink){const a=el('div','actions');a.append(btn('ビンゴカードを取得・開く',()=>{closeModal();showBingo(false)}));p.append(a)}for(const b of blocks)if(!used.has(b.uid))p.append(renderBlock(b));if(x.showProducts)p.append(productList());if(urlOK(x.link))p.append(btn('外部ページを開く ↗',()=>window.open(x.link,'_blank','noopener')));p.append(el('div','actions'));p.lastChild.append(btn('閉じる',closeModal,'btn secondary'));modal(p)}
@@ -343,6 +363,7 @@ async function bootstrapSite(){
  if(!window.YABASUGI_FIREBASE_CONFIG?.apiKey||!window.YABASUGI_FIREBASE_CONFIG?.databaseURL)await restoreLocalData();
  render();startAuto();renderCard();
  await loadImportedProductImages();
+ openDeepLinkedContent();
  prepareFirebase();
 }
 siteBootPromise=bootstrapSite();
