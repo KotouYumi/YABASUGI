@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "site": {
+      "content": {
+        ".read": true,
+        ".write": "auth != null && auth.uid === 'REPLACE_WITH_ADMIN_UID'",
+        ".validate": "newData.hasChildren(['slides','items','products'])"
+      },
+      "bingo": {
+        ".read": true,
+        ".write": "auth != null && auth.uid === 'REPLACE_WITH_ADMIN_UID'"
+      }
+    }
+  }
+}
