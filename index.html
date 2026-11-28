@@ -102,7 +102,7 @@
   </div>
   <div id="bingoParticipantList" class="bingo-participant-list"></div>
   <div id="bingoParticipantDetail" class="bingo-participant-detail"></div>
-</section><section id="bingoCardSection" class="bingo-area"><h2 style="text-align:center">MY BINGO CARD</h2><p class="subtle" style="text-align:center">B：1–15　I：16–30　N：31–45　G：46–60　O：61–75</p><div class="bingo-nickname-row"><label for="bingoNickname">ニックネーム（20文字以内）</label><input type="text" id="bingoNickname" maxlength="20" autocomplete="nickname" placeholder="例：みらい（鎮西寿々歌オレンジハチマキの人）"><button type="button" class="btn" id="registerBingoCard">カードを送信・更新</button><button type="button" class="btn secondary hidden" id="withdrawBingoCard">共有を取り消す</button></div><p id="bingoCardCloudStatus" class="subtle" role="status" aria-live="polite">カードを送信すると、抽選機に表示されます。</p><div class="bingo-play-card" aria-label="ビンゴカード">
+</section><section id="bingoCardSection" class="bingo-area"><h2 style="text-align:center">MY BINGO CARD</h2><p class="subtle" style="text-align:center">B：1–15　I：16–30　N：31–45　G：46–60　O：61–75</p><div class="bingo-nickname-row"><label for="bingoNickname">ニックネーム（20文字以内）</label><input type="text" id="bingoNickname" maxlength="20" autocomplete="nickname" placeholder="例：なかすけ"><button type="button" class="btn" id="registerBingoCard">カードを送信・更新</button><button type="button" class="btn secondary hidden" id="withdrawBingoCard">共有を取り消す</button></div><p id="bingoCardCloudStatus" class="subtle" role="status" aria-live="polite">カードを送信すると、抽選機に表示されます。</p><div class="bingo-play-card" aria-label="ビンゴカード">
   <div class="bingo-letter-row" aria-hidden="true"><span>B</span><span>I</span><span>N</span><span>G</span><span>O</span></div>
   <div class="bingo-grid" id="bingoGrid"></div>
   </div><p id="bingoStatus" style="text-align:center"></p>
@@ -136,8 +136,8 @@
 @keyframes yabasugiMintReach{from{box-shadow:0 0 0 1px rgba(42,218,164,.18),0 0 8px rgba(42,218,164,.4)}to{box-shadow:0 0 0 3px rgba(42,218,164,.35),0 0 24px 5px rgba(42,218,164,.8)}}
 @media(prefers-reduced-motion:reduce){.bingo-grid button.reach-target:not(.marked),.bingo-preview-cell.reach-target:not(.marked){animation:none}}
 .bingo-participant-detail .bingo-delete-action{display:flex;justify-content:center;margin:14px auto 0}
-.embedded-product{max-width:none;margin:0}
-.embedded-product .product-visual{min-height:0}
+.embedded-product{max-width:420px;margin:20px auto}
+.embedded-product .product-visual{min-height:160px}
 @media(max-width:600px){.bingo-participants{padding:12px}.bingo-nickname-row{flex-direction:column}.bingo-nickname-row input{width:100%;max-width:330px}}
 .admin-filter-tools{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 8px}.admin-filter-tools input,.admin-filter-tools select{padding:10px 12px;min-height:42px;border:1px solid #eddae4;border-radius:9px;background:#fff;color:#2b2430}.admin-filter-tools input{flex:1 1 190px;min-width:130px}.admin-filter-tools select{flex:1 1 170px;max-width:280px}.admin-list .editrow{gap:8px}.admin-entry-label{min-width:150px;flex:1 1 190px;overflow-wrap:anywhere}.admin-entry-label .subtle{margin-top:5px;font-size:.8rem}.editrow input[type=text]{flex:1 1 160px;min-width:100px}.admin-list .subtle{white-space:normal}@media(max-width:600px){.admin-filter-tools select{max-width:none}.admin-list .editrow{align-items:flex-start;flex-wrap:wrap}.admin-entry-label{flex-basis:100%}}
 </style>
@@ -203,23 +203,9 @@
 .thumb img,.product-visual img,.crop-preview img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;transform-origin:center center}
 .crop-preview{width:100%;aspect-ratio:1.4;max-width:570px;border:1px solid #e7e1e5;margin:10px 0}
 .crop-preview.preview-hero{aspect-ratio:16/9;max-width:680px}
-.crop-preview.preview-product{aspect-ratio:3/4;height:auto;max-width:300px}
+.crop-preview.preview-product{aspect-ratio:auto;height:140px;max-width:420px}
 .crop-preview img{max-height:none}
 .product-visual{overflow:hidden;background:#fff}
-/* v0.19: merchandise only — fixed two columns and portrait frames, on every screen. */
-.product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:stretch;margin:12px 0 20px}
-.product-grid .embedded-product{display:flex;flex-direction:column;min-width:0;max-width:none;margin:0;padding:10px;overflow-wrap:anywhere}
-.product-grid .product-visual{position:relative;width:100%;height:auto;min-height:0;max-height:none;aspect-ratio:3/4;display:block;background:#fff;border:1px solid #f4edf1}
-.product-grid .product-visual img{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:contain}
-.product-grid .product-visual .merch-swatch,.product-grid .product-visual .image-missing{display:flex;align-items:center;justify-content:center;text-align:center}
-.product-grid .product-visual .merch-swatch{height:100%;flex-direction:column;padding:5px}
-.product-grid .product-visual .merch-swatch-dot{width:min(65px,60%);height:auto;aspect-ratio:1}
-.product-grid .product-visual > .image-missing{position:absolute;inset:0}
-.product-grid .embedded-product h4{line-height:1.45}
-.product-grid .embedded-product a{display:block;margin-top:auto;padding-top:6px;overflow-wrap:anywhere}
-.merch-embed-picker{width:100%;min-width:0;flex:1 0 100%}
-.merch-embed-picker select{display:block;width:100%;max-width:100%;min-width:0;padding:8px;border:1px solid #e5d5df;border-radius:8px;margin:8px 0;background:white}
-@media(max-width:430px){.product-grid{gap:8px}.product-grid .embedded-product{padding:7px}.product-grid .embedded-product h4{font-size:13px}}
 /* Touch remains scrollable; native pinch zoom is disabled to prevent frame shifts. */
 html,body{touch-action:pan-x pan-y}
 @media(max-width:760px){.hero{max-height:none!important}}
@@ -233,22 +219,24 @@ let itemSearch='',itemSort='newest',productSearch='',productSort='original',publ
 let data,filter='全て',slideIndex=0,auto,authenticated=false,tab='items',detailId=null,bingoState='off',spinTimer=null,spinValue=0;
 const clone=o=>JSON.parse(JSON.stringify(o));
 data=clone(SEED)
-function normalizeProductRecords(value){
- const entries=Array.isArray(value)?value:(value&&typeof value==='object'?Object.values(value):[]);
- return entries.filter(p=>p&&typeof p==='object'&&p.id!==undefined&&p.id!==null&&String(p.id)!=='');
-}
 function normalize(){
  if(!Array.isArray(data.items))data.items=clone(SEED.items);
  if(!Array.isArray(data.slides))data.slides=clone(SEED.slides);
- // The bundled catalog is only initial data. Never overwrite registered merchandise.
- data.products=normalizeProductRecords(data.products);
- if(!data.merchCatalogVersion)data.merchCatalogVersion=SEED.merchCatalogVersion;
+ // Legacy releases had wrong colors and product URLs. Replace only that catalog once.
+ if(data.merchCatalogVersion!==SEED.merchCatalogVersion){
+  const previous=Array.isArray(data.products)?data.products:[];
+  const originals=new Map(previous.filter(p=>p&&p.id).map(p=>[String(p.id),p]));
+  data.products=SEED.products.map(p=>{const old=originals.get(String(p.id));return {...clone(p),image:old&&imgOK(old.image)?old.image:p.image};});
+  data.merchCatalogVersion=SEED.merchCatalogVersion;
+  window.yabasugiCatalogMigrated=true;
+ } else if(!Array.isArray(data.products)){data.products=clone(SEED.products);}
  if(!data.bingo)data.bingo={history:[]};
  data.items.forEach(x=>{if(typeof x.blocks==='string'){try{x.blocks=JSON.parse(x.blocks)}catch(e){x.blocks=[]}}
  if(!Array.isArray(x.blocks))x.blocks=[];
  x.blocks.forEach((b,i)=>{if(b&&typeof b==='object'&&!b.uid)b.uid=(x.id||'item')+'-block-'+(i+1)});
  if(x.id==='c1'&&x.description?.includes('【CHATGPTさん'))x.description=x.description.split('【CHATGPTさん')[0].trimEnd();
  if(x.id==='c1'&&x.bingoLink===undefined)x.bingoLink=true;
+ if(x.id==='c3'&&x.showProducts===undefined)x.showProducts=true;
  });
  normalizeMerchCategories();
  normalizePublicationData();
@@ -380,7 +368,7 @@ async function restoreLocalData(){
   let saved=await readLocalRecord();
   // This release's authoritative baseline is the explicitly supplied v12 JSON.
   // Older local data is retained in the old store, but never silently overrides it.
-  if(saved&&Array.isArray(saved.items)&&Array.isArray(saved.slides)){
+  if(saved&&Array.isArray(saved.items)&&Array.isArray(saved.slides)&&Array.isArray(saved.products)){
    data=saved;normalize();
   }
  }catch(e){
@@ -428,9 +416,8 @@ function cloudInit(){
  try{firebase.initializeApp(window.YABASUGI_FIREBASE_CONFIG);const auth=firebase.auth();
  auth.onAuthStateChanged(user=>{authenticated=!!user; if(user){statusCloud(cloudReady?'クラウド接続済み／管理者ログイン中':'クラウド読み込み中')}else{statusCloud(cloudReady?'閲覧モード':'クラウド読み込み中')}});
  firebase.database().ref('site/content').on('value',snap=>{const remote=snap.val();cloudReady=true;
- if(remote&&Array.isArray(remote.items)&&Array.isArray(remote.slides)){
-  if(cloudWriting)return;const openArticle=document.querySelector('#modal.show #modalBody > [data-article-detail]');const openId=openArticle?.dataset.articleDetail;
-   data=remote;normalize();render();if(openId){if(data.items.some(x=>String(x.id)===openId&&publiclyVisible(x)))showDetail(openId);else closeModal()}loadImportedProductImages();
+ if(remote&&Array.isArray(remote.items)&&Array.isArray(remote.slides)&&Array.isArray(remote.products)){
+  if(cloudWriting)return;data=remote;normalize();render();loadImportedProductImages();
   statusCloud(window.yabasugiCatalogMigrated?'商品URLの旧版データを画面上で訂正しました。管理者が保存するとクラウドへ反映されます。':(auth.currentUser?'クラウド同期済み／管理者ログイン中':'クラウド同期済み／閲覧モード'));
  }else if(!remote){data=clone(SEED);normalize();render();statusCloud(auth.currentUser?'初期データ未公開：管理画面から「初期データを公開」してください':'サイト初期データ未公開（管理者の公開待ち）',!auth.currentUser)}
  },e=>statusCloud('読み込み失敗：'+e.message,true));
@@ -463,36 +450,7 @@ function modal(p){document.getElementById('modalBody').replaceChildren(p);docume
 function closeModal(){document.getElementById('modal').classList.remove('show')}
 function closeDrawer(){document.getElementById('drawer').classList.remove('show');document.getElementById('overlay').classList.remove('show')}
 function goHome(){closeModal();filter='全て';render();window.scrollTo(0,0)}
-function showDetail(id){
- const x=data.items.find(q=>q.id===id);if(!x||!publiclyVisible(x))return;detailId=id;
- const p=el('div');p.dataset.articleDetail=String(id);p.append(el('h2','',x.title));
- if(imgOK(x.image))p.append(image(x.image,'detail-img',x.title));p.append(el('p','subtle',x.category));
- const blocks=Array.isArray(x.blocks)?x.blocks:[];
- const parts=String(x.description||'').split(/(\{\{(?:block|product):[^}]+\}\})/g);
- let pending=[];
- function flushProducts(){
-  if(!pending.length)return;
-  const grid=el('div','product-grid');for(const product of pending)grid.append(embeddedProduct(product));
-  p.append(grid);pending=[];
- }
- for(const part of parts){
-  const blockMatch=part.match(/^\{\{block:([^}]+)\}\}$/),productMatch=part.match(/^\{\{product:([^}]+)\}\}$/);
-  if(productMatch){const product=data.products.find(v=>String(v.id)===productMatch[1].trim());if(product)pending.push(product);continue}
-  if(!part.trim())continue;
-  flushProducts();
-  if(blockMatch){const b=blocks.find(v=>v&&String(v.uid)===blockMatch[1].trim());if(b)p.append(renderBlock(b));continue}
-  const section=el('div','detail-desc article-part');
-  const chunks=part.split(/(\[\[pink\]\][\s\S]*?\[\[\/pink\]\])/g);
-  for(const chunk of chunks){if(chunk.startsWith('[[pink]]')&&chunk.endsWith('[[/pink]]')){const sp=el('span','',chunk.slice(8,-9));sp.style.color='#ed4b94';section.append(sp)}else section.append(document.createTextNode(chunk))}
-  p.append(section);
- }
- flushProducts();
- if(x.bingoLink){const a=el('div','actions');a.append(btn('ビンゴカードを取得・開く',()=>{closeModal();showBingo(false)}));p.append(a)}
- // Unplaced blocks are deliberately not appended. All-products list is explicit opt-in only.
- if(x.showProducts===true)p.append(productList());
- if(urlOK(x.link))p.append(btn('外部ページを開く ↗',()=>window.open(x.link,'_blank','noopener')));
- p.append(el('div','actions'));p.lastChild.append(btn('閉じる',closeModal,'btn secondary'));modal(p)
-}
+function showDetail(id){const x=data.items.find(q=>q.id===id);if(!x||!publiclyVisible(x))return;detailId=id;const p=el('div');p.append(el('h2','',x.title));if(imgOK(x.image))p.append(image(x.image,'detail-img',x.title));p.append(el('p','subtle',x.category));const blocks=Array.isArray(x.blocks)?x.blocks:[];const used=new Set();const parts=String(x.description||'').split(/(\{\{(?:block|product):[^}]+\}\})/g);for(const part of parts){const match=part.match(/^\{\{block:([^}]+)\}\}$/);const productMatch=part.match(/^\{\{product:([^}]+)\}\}$/);if(match){const b=blocks.find(v=>v.uid===match[1]);if(b){p.append(renderBlock(b));used.add(b.uid)}else p.append(el('div','detail-desc',part))}else if(productMatch){const product=data.products.find(v=>String(v.id)===productMatch[1]);if(product)p.append(embeddedProduct(product));else p.append(el('p','subtle','登録されていない商品です：'+productMatch[1]))}else if(part){const section=el('div','detail-desc article-part');const chunks=part.split(/(\[\[pink\]\][\s\S]*?\[\[\/pink\]\])/g);for(const chunk of chunks){if(chunk.startsWith('[[pink]]')&&chunk.endsWith('[[/pink]]')){const sp=el('span','',chunk.slice(8,-9));sp.style.color='#ed4b94';section.append(sp)}else section.append(document.createTextNode(chunk))}p.append(section)}}if(x.bingoLink){const a=el('div','actions');a.append(btn('ビンゴカードを取得・開く',()=>{closeModal();showBingo(false)}));p.append(a)}for(const b of blocks)if(!used.has(b.uid))p.append(renderBlock(b));if(x.showProducts)p.append(productList());if(urlOK(x.link))p.append(btn('外部ページを開く ↗',()=>window.open(x.link,'_blank','noopener')));p.append(el('div','actions'));p.lastChild.append(btn('閉じる',closeModal,'btn secondary'));modal(p)}
 function headingSVG(){return `<svg viewBox="0 0 800 140" preserveAspectRatio="none" aria-hidden="true"><path d="M150 113H740L780 15" fill="none" stroke="#ccc" stroke-width="5"/><path d="M20 113L110 12H143L54 113Z" fill="#ee9bb3"/><path d="M48 134L140 25H174L82 134Z" fill="#f7c1d1"/><path d="M70 118L145 35H192L116 118Z" fill="#c93965"/></svg>`}
 function renderBlock(b){const wrap=el('div','block-preview');if(b.type==='image'){if(imgOK(b.src))wrap.append(image(b.src,'rich-image',b.alt||''));return wrap}if(b.type==='heading'){const h=el('div','heading-graphic');h.style.color=b.color||'#f45b95';h.innerHTML=headingSVG();h.append(el('span','',b.text||''));wrap.append(h);return wrap}if(b.type==='ticket'){const t=el('div','ticket'),m=el('div','ticket-main'),tag=el('span','ticket-tag',b.tag||''),name=el('div','ticket-name',b.name||''),price=el('div','ticket-price',b.price||'');tag.style.color=b.color||'#f45b95';price.style.color=b.color||'#f45b95';m.append(tag,name);t.append(m,price);wrap.append(t);return wrap}if(b.type==='text'){const t=el('div','detail-desc',b.text||'');t.style.color=b.color||'#29232b';wrap.append(t);return wrap}return wrap}
 function merchSwatch(color){const s=String(color||'');const rules=[['ブラック','#23242a'],['ホワイト','#fbf8ed'],['ピンク','#f4a4c5'],['ミント','#9edac2'],['ブルー（ロイヤル','#214ca0'],['アクアブルー','#8bd7ef'],['ライトブルー','#8bd7ef'],['パープル','#7350b0'],['レッド','#d92c35'],['オレンジ','#f28c32'],['イエロー','#f4d44e'],['ライトグレー','#b9bdc6'],['シルバー','#b9bdc6'],['ネイビー','#202d59'],['ブラウン','#674635'],['グリーン','#3f7948'],['ブルー','#214ca0']];return rules.find(([key])=>s.includes(key))?.[1]||'#d9ccd3'}
@@ -506,7 +464,7 @@ function embeddedProduct(p){
  return card;
 }
 function productList(){
- const container=el('div');container.append(el('h3','section-title','グッズ一覧｜全'+data.products.length+'品目'));
+ const container=el('div');container.append(el('h3','section-title','なんかする部 1周年記念グッズ｜全'+data.products.length+'品目'));
  const known=[...data.productCategories,...data.products.map(p=>p.category)].filter((v,i,a)=>a.indexOf(v)===i);
  for(const category of known){
   const subset=data.products.filter(p=>p.category===category);if(!subset.length)continue;
@@ -651,21 +609,17 @@ function itemForm(index){
  const pubToggle=checkboxField(p,'公開する（指定日時が未来なら予約投稿）',x.isPublished!==false);
  p.append(el('p','subtle','公開日時が既存ページと重複する場合は、空いている1秒後の時刻へ自動調整します。非公開のページと予約投稿は一般画面に表示しません。'));
  const desc=field(p,'本文・説明文（装飾の挿入位置も指定できます）',x.description,'textarea');desc.closest('label').classList.add('article-body-field');desc.rows=15;desc.placeholder='記事本文を入力。カーソル位置に装飾や画像を挿入できます。';const inline=el('div','editor-inline-tools');p.append(inline);
- const merch=el('div','block-controls merch-embed-picker');merch.append(el('strong','','登録済み商品を本文の好きな位置に埋め込む'));
- const pick=el('select');pick.setAttribute('aria-label','記事に埋め込む物販商品');
- function refreshMerchPicker(preferred){
-  const previous=preferred??pick.value;pick.replaceChildren();
-  for(const category of data.productCategories){const group=el('optgroup');group.label=category;for(const product of data.products.filter(v=>v.category===category)){const op=el('option','',product.title+(product.color?' / '+product.color:''));op.value=String(product.id);group.append(op)}if(group.children.length)pick.append(group)}
-  if([...pick.options].some(o=>o.value===previous))pick.value=previous;
-  pick.disabled=!pick.options.length;insertMerch.disabled=pick.disabled;
+ if(Array.isArray(data.products)&&data.products.length){
+  const merch=el('div','block-controls');merch.append(el('strong','','登録済み商品を本文の好きな位置に埋め込む'));
+  const pick=el('select');pick.setAttribute('aria-label','記事に埋め込む物販商品');
+  data.products.forEach(product=>{const op=el('option','',product.title+' / '+product.color);op.value=String(product.id);pick.append(op)});
+  merch.append(pick,btn('選択商品を本文へ挿入',()=>{
+   const mark='{{product:'+pick.value+'}}';const a=desc.selectionStart??desc.value.length,b=desc.selectionEnd??a;
+   desc.value=desc.value.slice(0,a)+'\n'+mark+'\n'+desc.value.slice(b);
+   desc.focus();desc.setSelectionRange(a+mark.length+2,a+mark.length+2);
+  },'btn secondary'));inline.append(merch);
  }
- const insertMerch=btn('選択商品を本文へ挿入',()=>{
-  if(!data.products.some(v=>String(v.id)===pick.value))return;
-  const mark='{{product:'+pick.value+'}}';const a=desc.selectionStart??desc.value.length,b=desc.selectionEnd??a;
-  desc.setRangeText('\n'+mark+'\n',a,b,'end');desc.focus();
- },'btn secondary');
- merch.append(pick,insertMerch,el('p','subtle','続けて挿入した商品は横2列で表示します。本文の配置指定を削除すると表示されなくなります。'));inline.append(merch);refreshMerchPicker();
- const im=imageField(p,x.image,'トップページ用サムネイル画像');const clearThumb=btn('✕ サムネイル画像を削除',()=>{im.value='';im.dispatchEvent(new Event('input',{bubbles:true}));im.closest('label').querySelector('input[type=file]').value='';thumbCleared=true},'btn danger');let thumbCleared=false;p.append(clearThumb);const getCrop=cropControls(p,im,x.crop),link=field(p,'外部リンクURL（任意）',x.link,'url'),bingoLink=checkboxField(p,'ビンゴカード取得ボタンを表示',x.bingoLink),showProducts=checkboxField(p,'登録商品一覧を本文末尾に表示（自動連動）',x.showProducts);p.append(btn('＋ この記事から物販商品を追加',()=>productForm(undefined,p,()=>{refreshMerchPicker(String(data.products[data.products.length-1]?.id||''))}),'btn secondary'));let blocks=clone(Array.isArray(x.blocks)?x.blocks:[]);blocks.forEach((b,i)=>{if(!b.uid)b.uid=(x.id||'new')+'-block-'+(i+1)});const blockArea=el('div');p.append(el('h3','','本文に挿入する画像・装飾パーツ'));p.append(el('p','subtle','本文中の {{block:...}} は装飾の配置指定です。削除すると該当パーツは表示されません。文字・画像は別々に編集できます。'));p.append(blockArea);function marker(b){return '{{block:'+b.uid+'}}'}function insertAtCursor(b){const pos=desc.selectionStart??desc.value.length,end=desc.selectionEnd??pos;const m='\n'+marker(b)+'\n';desc.value=desc.value.slice(0,pos)+m+desc.value.slice(end);desc.focus();desc.setSelectionRange(pos+m.length,pos+m.length)}function refresh(){blockArea.replaceChildren();blocks.forEach((b,i)=>{const box=el('div','block-controls');box.append(renderBlock(b));const a=el('div','actions');a.append(btn('編集',()=>blockForm(b,v=>{blocks[i]={...v,uid:b.uid};refresh()}),'btn secondary'),btn('本文のカーソル位置に挿入',()=>{if(!desc.value.includes(marker(b)))insertAtCursor(b);else{desc.focus();desc.setSelectionRange(desc.value.indexOf(marker(b)),desc.value.indexOf(marker(b))+marker(b).length)}},'btn secondary'),btn('↑',()=>{if(i){[blocks[i-1],blocks[i]]=[blocks[i],blocks[i-1]];refresh()}},'btn secondary'),btn('↓',()=>{if(i<blocks.length-1){[blocks[i+1],blocks[i]]=[blocks[i],blocks[i+1]];refresh()}},'btn secondary'),btn('削除',()=>{desc.value=desc.value.replaceAll(marker(b),'');blocks.splice(i,1);refresh()},'btn danger'));box.append(a);blockArea.append(box)})}refresh();const types=selectField(p,'追加するパーツ',['見出しパーツ','特典券パーツ','本文テキスト','画像アップロード'],'見出しパーツ');function addPart(type){blockForm({type},v=>{v.uid='b'+Date.now()+'-'+Math.floor(Math.random()*1e6);blocks.push(v);insertAtCursor(v);refresh()})}inline.append(btn('選択文字をピンクに',()=>{const a=desc.selectionStart,b=desc.selectionEnd;if(a===b){alert('本文中の文字を選択してください');return}const selected=desc.value.slice(a,b);desc.setRangeText('[[pink]]'+selected+'[[/pink]]',a,b,'select');desc.focus()},'btn secondary'),btn('選択文字を黒に戻す',()=>{let a=desc.selectionStart,b=desc.selectionEnd;const val=desc.value;let selected=val.slice(a,b);if(selected.startsWith('[[pink]]')&&selected.endsWith('[[/pink]]')){desc.setRangeText(selected.slice(8,-9),a,b,'select')}else alert('[[pink]] と [[/pink]] を含む範囲を選択してください')},'btn secondary'));inline.append(btn('＋ ピンクの見出し',()=>addPart('heading'),'btn secondary'),btn('＋ 特典券',()=>addPart('ticket'),'btn secondary'),btn('＋ 本文画像',()=>addPart('image'),'btn secondary'));p.append(btn('＋ 選択したパーツを追加',()=>{const type={'見出しパーツ':'heading','特典券パーツ':'ticket','本文テキスト':'text','画像アップロード':'image'}[types.value];addPart(type)}));p.append(el('div','actions'));p.lastChild.append(btn('保存',async()=>{if(!title.value.trim())return alert('タイトルを入力してください');
+ const im=imageField(p,x.image,'トップページ用サムネイル画像');const clearThumb=btn('✕ サムネイル画像を削除',()=>{im.value='';im.dispatchEvent(new Event('input',{bubbles:true}));im.closest('label').querySelector('input[type=file]').value='';thumbCleared=true},'btn danger');let thumbCleared=false;p.append(clearThumb);const getCrop=cropControls(p,im,x.crop),link=field(p,'外部リンクURL（任意）',x.link,'url'),bingoLink=checkboxField(p,'ビンゴカード取得ボタンを表示',x.bingoLink),showProducts=checkboxField(p,'登録商品一覧を本文末尾に表示（自動連動）',x.showProducts);p.append(btn('＋ この記事から物販商品を追加',()=>productForm(undefined,p,()=>{showProducts.checked=true}),'btn secondary'));let blocks=clone(Array.isArray(x.blocks)?x.blocks:[]);blocks.forEach((b,i)=>{if(!b.uid)b.uid=(x.id||'new')+'-block-'+(i+1)});const blockArea=el('div');p.append(el('h3','','本文に挿入する画像・装飾パーツ'));p.append(el('p','subtle','本文中の {{block:...}} は装飾の配置指定です。削除すると該当パーツは本文末尾に表示されます。文字・画像は別々に編集できます。'));p.append(blockArea);function marker(b){return '{{block:'+b.uid+'}}'}function insertAtCursor(b){const pos=desc.selectionStart??desc.value.length,end=desc.selectionEnd??pos;const m='\n'+marker(b)+'\n';desc.value=desc.value.slice(0,pos)+m+desc.value.slice(end);desc.focus();desc.setSelectionRange(pos+m.length,pos+m.length)}function refresh(){blockArea.replaceChildren();blocks.forEach((b,i)=>{const box=el('div','block-controls');box.append(renderBlock(b));const a=el('div','actions');a.append(btn('編集',()=>blockForm(b,v=>{blocks[i]={...v,uid:b.uid};refresh()}),'btn secondary'),btn('本文のカーソル位置に挿入',()=>{if(!desc.value.includes(marker(b)))insertAtCursor(b);else{desc.focus();desc.setSelectionRange(desc.value.indexOf(marker(b)),desc.value.indexOf(marker(b))+marker(b).length)}},'btn secondary'),btn('↑',()=>{if(i){[blocks[i-1],blocks[i]]=[blocks[i],blocks[i-1]];refresh()}},'btn secondary'),btn('↓',()=>{if(i<blocks.length-1){[blocks[i+1],blocks[i]]=[blocks[i],blocks[i+1]];refresh()}},'btn secondary'),btn('削除',()=>{desc.value=desc.value.replaceAll(marker(b),'');blocks.splice(i,1);refresh()},'btn danger'));box.append(a);blockArea.append(box)})}refresh();const types=selectField(p,'追加するパーツ',['見出しパーツ','特典券パーツ','本文テキスト','画像アップロード'],'見出しパーツ');function addPart(type){blockForm({type},v=>{v.uid='b'+Date.now()+'-'+Math.floor(Math.random()*1e6);blocks.push(v);insertAtCursor(v);refresh()})}inline.append(btn('選択文字をピンクに',()=>{const a=desc.selectionStart,b=desc.selectionEnd;if(a===b){alert('本文中の文字を選択してください');return}const selected=desc.value.slice(a,b);desc.setRangeText('[[pink]]'+selected+'[[/pink]]',a,b,'select');desc.focus()},'btn secondary'),btn('選択文字を黒に戻す',()=>{let a=desc.selectionStart,b=desc.selectionEnd;const val=desc.value;let selected=val.slice(a,b);if(selected.startsWith('[[pink]]')&&selected.endsWith('[[/pink]]')){desc.setRangeText(selected.slice(8,-9),a,b,'select')}else alert('[[pink]] と [[/pink]] を含む範囲を選択してください')},'btn secondary'));inline.append(btn('＋ ピンクの見出し',()=>addPart('heading'),'btn secondary'),btn('＋ 特典券',()=>addPart('ticket'),'btn secondary'),btn('＋ 本文画像',()=>addPart('image'),'btn secondary'));p.append(btn('＋ 選択したパーツを追加',()=>{const type={'見出しパーツ':'heading','特典券パーツ':'ticket','本文テキスト':'text','画像アップロード':'image'}[types.value];addPart(type)}));p.append(el('div','actions'));p.lastChild.append(btn('保存',async()=>{if(!title.value.trim())return alert('タイトルを入力してください');
  const requested=parseJstDateTime(publishDate.value,publishTime.value.trim());
  if(requested===null)return alert('公開日時を確認してください。時刻は秒まで HH:MM:SS 形式で入力してください。');
  const occupied=new Set(data.items.filter((_,i)=>i!==index).map(v=>v.publishAt));
@@ -840,7 +794,7 @@ async function loadImportedProductImages(){
  try{const response=await fetch('merch-images.json',{cache:'no-store'});if(!response.ok)return;
  const manifest=await response.json();if(!manifest||typeof manifest!=='object')return;
  let updated=0;for(const p of data.products){const path=manifest[p.id];if(typeof path==='string'&&/^merch-images\/[a-zA-Z0-9._-]+\.(?:png|jpe?g|webp)$/.test(path)&&!imgOK(p.image)){p.image=path;updated++}}
- if(updated){const openId=document.querySelector('#modal.show #modalBody > [data-article-detail]')?.dataset.articleDetail;render();if(openId)showDetail(openId);statusCloud(updated+'件の商品画像を読込み（公開データ未保存）')}
+ if(updated){render();statusCloud(updated+'件の商品画像を読込み（公開データ未保存）')}
  }catch(e){}
 }
 async function bootstrapSite(){
